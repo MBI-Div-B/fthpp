@@ -1,0 +1,10 @@
+name: fthpp
+channels:
+  - conda-forge
+  - nodefaults
+dependencies:
+  - cupy
+  - numpy>=1.13
+  - scipy
+  - ipympl
+  - ipywidgets
