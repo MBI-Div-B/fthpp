@@ -4,7 +4,7 @@ channels:
   - nodefaults
 dependencies:
   - cupy
-  - numpy>=1.13
+  - numpy>=1.17
   - scipy
   - ipympl
   - ipywidgets
