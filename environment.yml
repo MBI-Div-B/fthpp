@@ -5,8 +5,10 @@ channels:
 dependencies:
   - cupy
   - numpy>=1.17
+  - matplotlib
   - scipy
   - ipympl
   - ipywidgets
   - dipy
   - scikit-image
+  - tqdm
