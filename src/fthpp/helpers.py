@@ -7,7 +7,7 @@ from dipy.align.transforms import AffineTransform2D, TranslationTransform2D
 from dipy.align.imaffine import MutualInformationMetric, AffineRegistration
 
 
-
+# TODO: separate functions, magic numbers, rounding
 def image_registration(
     image_unproccessed: ArrayLike,
     image_background: ArrayLike,
@@ -113,11 +113,12 @@ def scalar_norm(arr1, arr2):
     return np.einsum("ij, ij", arr1, arr2) / np.einsum("ij, ij", arr2, arr2)
 
 
+# TODO: define in fit function or use lambda function
 def func_lin(x, a, b):
     """Basic linear function for fitting"""
     return a * x + b
 
-
+# TODO: name, separate out plot part (generalized), use linregress?
 def fitting_norm(
     arr1: ArrayLike, arr2: ArrayLike, plot: bool = True
 ) -> tuple[float, float]:
@@ -177,7 +178,7 @@ def fitting_norm(
 
     return factor, offset
 
-
+# TODO: do we need this? very general name
 def normalize(
     image: ArrayLike,
     image_ref: ArrayLike,
