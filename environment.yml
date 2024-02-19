@@ -8,3 +8,5 @@ dependencies:
   - scipy
   - ipympl
   - ipywidgets
+  - dipy
+  - scikit-image
