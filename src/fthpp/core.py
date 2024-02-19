@@ -13,6 +13,20 @@ import scipy.fft as fft
 import scipy.constants as cst
 
 
+__all__ = [
+    "GPU",
+    "crop_center",
+    "pad_for_fft",
+    "shift_image",
+    "fft2",
+    "ifft2",
+    "propagate",
+    "shift_phase",
+    "bin_image",
+    "fourier_shift",
+]
+
+
 try:
     import cupy as cp
     import cupyx.scipy.fft as cufft
@@ -34,10 +48,12 @@ except Exception as ex:
 
 if GPU:
     from cupyx.scipy.ndimage import fourier_shift
+
     fft.set_global_backend(cufft)
     _fftopts = {}
 else:
     from scipy.ndimage import fourier_shift
+
     _fftopts = dict(workers=-1)
 
 
@@ -175,10 +191,10 @@ def shift_phase(arr: ArrayLike, phase: float) -> ArrayLike:
     return arr * np.exp(1j * phase)
 
 
-#TODO: function name, avoid array creation, optionally generalize to n
-def binning(arr: ArrayLike, binning_factor: int) -> ArrayLike:
+# TODO: function name, avoid array creation, optionally generalize to n
+def bin_image(arr: ArrayLike, binning_factor: int) -> ArrayLike:
     """
-    Bins images: new_shape = old_shape/binning_factor
+    Bins image by averaging nxn: new_shape = old_shape/binning_factor
 
     Parameter
     =========
