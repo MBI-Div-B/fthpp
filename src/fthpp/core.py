@@ -34,12 +34,10 @@ except Exception as ex:
 
 if GPU:
     from cupyx.scipy.ndimage import fourier_shift
-
     fft.set_global_backend(cufft)
     _fftopts = {}
 else:
     from scipy.ndimage import fourier_shift
-
     _fftopts = dict(workers=-1)
 
 
@@ -109,7 +107,7 @@ def ifft2(image: ArrayLike) -> ArrayLike:
     return fft.fftshift(fft.ifft2(fft.ifftshift(image), **_fftopts))
 
 
-# TODO: 
+# TODO: input parameter, magic numbers, stick to american english spelling
 def propagate(
     holo: ArrayLike,
     prop_l: float,
@@ -156,6 +154,7 @@ def propagate(
     return np.exp(1j * phase) * holo
 
 
+# TODO: name, docstring
 def shift_phase(arr: ArrayLike, phase: float) -> ArrayLike:
     """
     Multiply complex-valued arr with a global phase
@@ -176,6 +175,7 @@ def shift_phase(arr: ArrayLike, phase: float) -> ArrayLike:
     return arr * np.exp(1j * phase)
 
 
+#TODO: function name, avoid array creation, optionally generalize to n
 def binning(arr: ArrayLike, binning_factor: int) -> ArrayLike:
     """
     Bins images: new_shape = old_shape/binning_factor
