@@ -1,4 +1,3 @@
-from functools import partial
 import logging
 log = logging.getLogger(__name__)
 # ch = logging.StreamHandler()
@@ -14,7 +13,6 @@ import scipy.fft as fft
 try:
     import cupy as cp
     import cupyx.scipy.fft as cufft
-    fft.set_global_backend(cufft)
     GPU = cp.is_available()
     log.info("CUDA GPU available.")
 except ImportError:
@@ -28,6 +26,7 @@ except Exception as ex:
 
 if GPU:
     from cupyx.scipy.ndimage import fourier_shift
+    fft.set_global_backend(cufft)
     _fftopts = {}
 else:
     from scipy.ndimage import fourier_shift
@@ -42,8 +41,7 @@ def crop_center(image: ArrayLike, center: tuple[int], square=True) -> ArrayLike:
     image : Input image
     center : Coordinate of center pixel
     square : bool, optional, default=True
-        Make cropped area square by using the smallest common size for
-        all dimensions.
+        Use smallest common length for all dimensions.
     """
     m0, m1 = [int(min(c, s - c)) for s, c in zip(image.shape, center)]
     if square:
